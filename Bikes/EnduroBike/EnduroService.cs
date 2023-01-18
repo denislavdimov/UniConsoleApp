@@ -56,6 +56,7 @@ namespace Uni.Bikes.EnduroBike
                 WriteLine($"Category: {enduro.Category} - {specificCategoryCount}");
                 WriteLine($"WheelSize: {enduro.WheelSize}");
                 WriteLine($"Price: {enduro.Price}");
+                //test git
             }
         }
     }
