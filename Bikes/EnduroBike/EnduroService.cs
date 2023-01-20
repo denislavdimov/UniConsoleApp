@@ -44,9 +44,11 @@ namespace Uni.Bikes.EnduroBike
             WriteLine("--------------------------------------------");
             foreach (var enduro in _listOfAllEnduros)
             {
-                Write($"Category: {enduro.Category}, ");
-                Write($"Price: {enduro.Price}, ");
+                var specificCategoryCount = _listOfAllEnduros.Where(c => enduro.Category == _enduro.Category).Count();
+                //var try2 = list.FirstOrDefault(w => w.Equals(enduro.Category));
+                WriteLine($"Category: {enduro.Category} - {specificCategoryCount}");
                 WriteLine($"WheelSize: {enduro.WheelSize}");
+                WriteLine($"Price: {enduro.Price}");
             }
             WriteLine("--------------------------------------------");
         }
