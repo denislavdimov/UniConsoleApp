@@ -4,6 +4,5 @@
     {
         void Add();
         void ShowAllCustomers();
-        bool Validate();
     }
 }

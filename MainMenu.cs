@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Uni.Bikes.DownhillBike;
 using Uni.Bikes.EnduroBike;
 using Uni.Customer;
 using static System.Console;
@@ -9,6 +10,7 @@ namespace Uni
     {
         private ICustomerService _customer;
         private IEnduroService _enduro;
+        private IDownhillService _downhill;
 
         private Dictionary<int, string> MenuOptions = new Dictionary<int, string>()
                 {
@@ -22,10 +24,11 @@ namespace Uni
                     { 8, "8. Exit" }
                 };
 
-        public MainMenu(ICustomerService customer, IEnduroService enduro)
+        public MainMenu(ICustomerService customer, IEnduroService enduro, IDownhillService downhill)
         {
             _customer = customer;
             _enduro = enduro;
+            _downhill = downhill;
         }
 
         public void Menu()
@@ -45,7 +48,6 @@ namespace Uni
 
         public void SelectOption()
         {
-
             string option = ReadLine();
 
             while (option != "8")
@@ -65,23 +67,39 @@ namespace Uni
                         break;
 
                     case "4":
-
+                        Clear();
+                        _enduro.ShowEnduroStatistics();
+                        WriteLine();
+                        WriteLine("***********************************************");
+                        WriteLine();
+                        _downhill.ShowDownhillStatistics();
+                        WriteLine("Press: 7 to navigate back");
                         break;
 
                     case "5":
                         Clear();
-                        WriteLine("Select what bike to add:");
+                        WriteLine("Select bike to add:");
                         WriteLine("1 - for Enduro");
                         WriteLine("2 - for Downhill");
                         string select = ReadLine();
+                        while (select != "1" && select != "2")
+                        {
+                            WriteLine("Enter correct option!");
+                            select = ReadLine();
+                        }
                         if (select == "1")
                         {
                             _enduro.Add();
+                            Clear();
                             _enduro.ShowEnduroStatistics();
+                            WriteLine("Press: 7 to navigate back");
                         }
                         else
                         {
-                            // downhil
+                            _downhill.Add();
+                            Clear();
+                            _downhill.ShowDownhillStatistics();
+                            WriteLine("Press: 7 to navigate back");
                         }
                         break;
 
@@ -94,15 +112,13 @@ namespace Uni
                     case "7":
                         Clear();
                         Menu();
-
                         break;
 
                     default:
                         WriteLine("Select a valid option");
-                        Thread.Sleep(1000);
+                        Thread.Sleep(500);
                         break;
                 }
-
                 WriteLine("Select a option");
                 option = ReadLine();
             }

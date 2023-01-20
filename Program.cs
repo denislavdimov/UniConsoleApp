@@ -1,4 +1,4 @@
-﻿using Uni.Bikes;
+﻿using Uni.Bikes.DownhillBike;
 using Uni.Bikes.EnduroBike;
 using Uni.Customer;
 
@@ -8,22 +8,9 @@ namespace Uni
     {
         static void Main(string[] args)
         {
-            var mainMenu = new MainMenu(new CustomerService(), new EnduroService());
+            var mainMenu = new MainMenu(new CustomerService(), new EnduroService(), new DownhillService());
             mainMenu.Menu();
             mainMenu.SelectOption();
-
-            //int number = 0;
-
-            //do
-            //{
-            //    Console.WriteLine("Select menu");
-            //    int choice = int.Parse(Console.ReadLine());
-            //    number = choice;
-            //}
-            //while (number <= 0 || number > menu.Count);
-            //{
-            //    Console.WriteLine(menu[number]);
-            //}
         }
     }
 }
