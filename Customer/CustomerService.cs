@@ -43,11 +43,5 @@ namespace Uni.Customer
                 WriteLine(customer.Name);
             }
         }
-
-        public void BuyBike()
-        {
-            
-
-        }
     }
 }
