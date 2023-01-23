@@ -5,6 +5,7 @@ namespace Uni.Bikes.EnduroBike
     public class EnduroService : IEnduroService
     {
         private readonly List<Enduro> _listOfAllEnduros;
+        private int numberOfSells = 0;
 
         public EnduroService()
         {
@@ -44,13 +45,49 @@ namespace Uni.Bikes.EnduroBike
             WriteLine("--------------------------------------------");
             foreach (var enduro in _listOfAllEnduros)
             {
-                var specificCategoryCount = _listOfAllEnduros.Where(c => enduro.Category == _enduro.Category).Count();
-                //var try2 = list.FirstOrDefault(w => w.Equals(enduro.Category));
+                //var a = new BikeModel { Price = enduro.Price, WheelSize = enduro.WheelSize };
+                //Dictionary1221.Add(a); 
+
+                var specificCategoryCount = _listOfAllEnduros.Where(c => enduro.Category == c.Category).Count();
                 WriteLine($"Category: {enduro.Category} - {specificCategoryCount}");
                 WriteLine($"WheelSize: {enduro.WheelSize}");
                 WriteLine($"Price: {enduro.Price}");
             }
             WriteLine("--------------------------------------------");
+        }
+
+        public void SellBike()
+        {
+            WriteLine("Select category to sell: 140, 160 or 180.");
+            string cat = ReadLine();
+            while (cat != "140" && cat != "160" && cat != "180")
+            {
+                WriteLine("Enter correct category!");
+                cat = ReadLine();
+            }
+
+            try
+            {
+                var enduroToSell = _listOfAllEnduros.First(b => b.Category == (EnduroCategories)int.Parse(cat));
+                var removeIsSuccessfull = _listOfAllEnduros.Remove(enduroToSell);
+                if (removeIsSuccessfull)
+                {
+                    numberOfSells++;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                WriteLine($"There is not available {cat}'s model right now.");
+            }
+
+            WriteLine("-------------––––------------------------------------");
+            if (numberOfSells > 0)
+            {
+                WriteLine($"Number of Enduro sells: {numberOfSells}");
+                WriteLine("-------------––––------------------------------------");
+            }
+            WriteLine("Availability");
+            ShowEnduroStatistics();
         }
     }
 }

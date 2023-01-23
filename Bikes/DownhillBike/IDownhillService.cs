@@ -4,5 +4,6 @@
     {
         void Add();
         void ShowDownhillStatistics();
+        void SellBike();
     }
 }

@@ -4,5 +4,6 @@
     {
         void Add();
         void ShowEnduroStatistics();
+        void SellBike();
     }
 }

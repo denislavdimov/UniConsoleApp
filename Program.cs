@@ -11,6 +11,7 @@ namespace Uni
             var mainMenu = new MainMenu(new CustomerService(), new EnduroService(), new DownhillService());
             mainMenu.Menu();
             mainMenu.SelectOption();
+
         }
     }
 }

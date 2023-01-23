@@ -33,8 +33,7 @@ namespace Uni
 
         public void Menu()
         {
-            string title = "BIKE STORE";
-            WriteLine(title);
+            WriteLine("******BIKE STORE******");
 
             WriteLine(MenuOptions[1]);
             WriteLine(MenuOptions[2]);
@@ -46,6 +45,18 @@ namespace Uni
             WriteLine(MenuOptions[8]);
         }
 
+        public string SelectBikeModel()
+        {
+            WriteLine("Select 1 for enduro and 2 for downhill");
+            string bike = ReadLine();
+            while (bike != "1" && bike != "2")
+            {
+                WriteLine("Enter correct option!");
+                bike = ReadLine();
+            }
+            return bike;
+        }
+
         public void SelectOption()
         {
             string option = ReadLine();
@@ -55,7 +66,20 @@ namespace Uni
                 switch (option)
                 {
                     case "1":
-
+                        Clear();
+                        string bike = SelectBikeModel();
+                        if (bike == "1")
+                        {
+                            Clear();
+                            _enduro.SellBike();
+                            WriteLine("Press 7 to navigate back and 8 to exit.");
+                        }
+                        else if (bike == "2")
+                        {
+                            Clear();
+                            _downhill.SellBike();
+                            WriteLine("Press 7 to navigate back and 8 to exit.");
+                        }
                         break;
 
                     case "2":
@@ -73,40 +97,32 @@ namespace Uni
                         WriteLine("***********************************************");
                         WriteLine();
                         _downhill.ShowDownhillStatistics();
-                        WriteLine("Press: 7 to navigate back");
+                        WriteLine("Press 7 to navigate back and 8 to exit.");
                         break;
 
                     case "5":
                         Clear();
-                        WriteLine("Select bike to add:");
-                        WriteLine("1 - for Enduro");
-                        WriteLine("2 - for Downhill");
-                        string select = ReadLine();
-                        while (select != "1" && select != "2")
-                        {
-                            WriteLine("Enter correct option!");
-                            select = ReadLine();
-                        }
-                        if (select == "1")
+                        string bikeOption = SelectBikeModel();
+                        if (bikeOption == "1")
                         {
                             _enduro.Add();
                             Clear();
                             _enduro.ShowEnduroStatistics();
-                            WriteLine("Press: 7 to navigate back");
+                            WriteLine("Press 7 to navigate back and 8 to exit.");
                         }
-                        else
+                        else if (bikeOption == "2")
                         {
                             _downhill.Add();
                             Clear();
                             _downhill.ShowDownhillStatistics();
-                            WriteLine("Press: 7 to navigate back");
+                            WriteLine("Press 7 to navigate back and 8 to exit.");
                         }
                         break;
 
                     case "6":
                         _customer.Add();
                         _customer.ShowAllCustomers();
-                        WriteLine("Press: 7 to navigate back");
+                        WriteLine("Press 7 to navigate back and 8 to exit.");
                         break;
 
                     case "7":
@@ -119,7 +135,7 @@ namespace Uni
                         Thread.Sleep(500);
                         break;
                 }
-                WriteLine("Select a option");
+                WriteLine("Select an option");
                 option = ReadLine();
             }
         }
