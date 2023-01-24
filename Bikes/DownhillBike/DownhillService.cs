@@ -1,12 +1,12 @@
-﻿using Uni.Bikes.EnduroBike;
-using static System.Console;
+﻿using static System.Console;
 
 namespace Uni.Bikes.DownhillBike
 {
     public class DownhillService : IDownhillService
     {
         private readonly List<Downhill> _listOfAllDownhills;
-        private int numberOfSells = 0;
+        public List<Downhill> GetListOfAllDownhills() => _listOfAllDownhills;
+        public int numberOfSells { get; set; }
 
         public DownhillService()
         {
@@ -66,7 +66,8 @@ namespace Uni.Bikes.DownhillBike
             try
             {
                 var downhillToSell = _listOfAllDownhills.First(b => b.Category == (DownhillCategories)int.Parse(cat));
-                var removeIsSuccessfull = _listOfAllDownhills.Remove(downhillToSell);
+                _listOfAllDownhills.Remove(downhillToSell);
+                WriteLine("Downhill is successfully removed from the list.");
                 numberOfSells++;
             }
             catch (InvalidOperationException)
@@ -82,16 +83,6 @@ namespace Uni.Bikes.DownhillBike
             }
             WriteLine("Availability");
             ShowDownhillStatistics();
-        }
-
-        public Dictionary<int, T> GenericTest<T>(List<T> list)
-        {
-            var dic = new Dictionary<int, T>();
-            for (int i = 0; i < _listOfAllDownhills.Count; i++)
-            {
-                dic.Add(i, list[1]);
-            }
-            return dic;
         }
     }
 }

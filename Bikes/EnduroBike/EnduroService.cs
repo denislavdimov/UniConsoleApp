@@ -5,7 +5,8 @@ namespace Uni.Bikes.EnduroBike
     public class EnduroService : IEnduroService
     {
         private readonly List<Enduro> _listOfAllEnduros;
-        private int numberOfSells = 0;
+        public List<Enduro> GetListOfAllEnduros() => _listOfAllEnduros;
+        public int numberOfSells { get; set; }
 
         public EnduroService()
         {
@@ -45,9 +46,6 @@ namespace Uni.Bikes.EnduroBike
             WriteLine("--------------------------------------------");
             foreach (var enduro in _listOfAllEnduros)
             {
-                //var a = new BikeModel { Price = enduro.Price, WheelSize = enduro.WheelSize };
-                //Dictionary1221.Add(a); 
-
                 var specificCategoryCount = _listOfAllEnduros.Where(c => enduro.Category == c.Category).Count();
                 WriteLine($"Category: {enduro.Category} - {specificCategoryCount}");
                 WriteLine($"WheelSize: {enduro.WheelSize}");
@@ -69,11 +67,9 @@ namespace Uni.Bikes.EnduroBike
             try
             {
                 var enduroToSell = _listOfAllEnduros.First(b => b.Category == (EnduroCategories)int.Parse(cat));
-                var removeIsSuccessfull = _listOfAllEnduros.Remove(enduroToSell);
-                if (removeIsSuccessfull)
-                {
-                    numberOfSells++;
-                }
+                _listOfAllEnduros.Remove(enduroToSell);
+                WriteLine("Enduro is successfully removed from the list.");
+                numberOfSells++;
             }
             catch (InvalidOperationException)
             {
@@ -89,5 +85,6 @@ namespace Uni.Bikes.EnduroBike
             WriteLine("Availability");
             ShowEnduroStatistics();
         }
+
     }
 }

@@ -1,20 +1,14 @@
-﻿using Uni.Bikes.DownhillBike;
-using Uni.Bikes.EnduroBike;
-using static System.Console;
+﻿using static System.Console;
 
 namespace Uni.Customer
 {
     public class CustomerService : ICustomerService
     {
-        private readonly IEnduroService _enduro;
-        private readonly IDownhillService _downhill;
         private readonly List<Customer> _listOfAllCustomers;
 
         public CustomerService()
         {
             _listOfAllCustomers = new List<Customer>();
-            _enduro = new EnduroService();
-            _downhill = new DownhillService();
         }
 
         public void Add()
@@ -42,12 +36,6 @@ namespace Uni.Customer
             {
                 WriteLine(customer.Name);
             }
-        }
-
-        public void BuyBike()
-        {
-            
-
         }
     }
 }

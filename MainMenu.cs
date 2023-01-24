@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using Uni.Bikes;
 using Uni.Bikes.DownhillBike;
 using Uni.Bikes.EnduroBike;
 using Uni.Customer;
@@ -8,20 +8,19 @@ namespace Uni
 {
     public class MainMenu
     {
-        private ICustomerService _customer;
-        private IEnduroService _enduro;
-        private IDownhillService _downhill;
+        private readonly ICustomerService _customer;
+        private readonly IEnduroService _enduro;
+        private readonly IDownhillService _downhill;
 
         private Dictionary<int, string> MenuOptions = new Dictionary<int, string>()
                 {
-                    { 1, "1. Sell stock" },
+                    { 1, "1. Sell bike" },
                     { 2, "2. Availability" },
-                    { 3, "3. Customer Statistics" },
-                    { 4, "4. Store Statistics" },
-                    { 5, "5. Add new bike" },
-                    { 6, "6. Create new customer" },
-                    { 7, "7. Back" },
-                    { 8, "8. Exit" }
+                    { 3, "3. Store Statistics" },
+                    { 4, "4. Add new bike" },
+                    { 5, "5. Create new customer" },
+                    { 6, "6. Back" },
+                    { 7, "7. Exit" }
                 };
 
         public MainMenu(ICustomerService customer, IEnduroService enduro, IDownhillService downhill)
@@ -42,7 +41,6 @@ namespace Uni
             WriteLine(MenuOptions[5]);
             WriteLine(MenuOptions[6]);
             WriteLine(MenuOptions[7]);
-            WriteLine(MenuOptions[8]);
         }
 
         public string SelectBikeModel()
@@ -60,8 +58,8 @@ namespace Uni
         public void SelectOption()
         {
             string option = ReadLine();
-
-            while (option != "8")
+            var optionsCount = MenuOptions.Keys.Count;
+            while (option != optionsCount.ToString())
             {
                 switch (option)
                 {
@@ -72,35 +70,39 @@ namespace Uni
                         {
                             Clear();
                             _enduro.SellBike();
-                            WriteLine("Press 7 to navigate back and 8 to exit.");
+                            WriteLine($"Press {optionsCount - 1} to navigate back " +
+                                $"and {optionsCount} to exit.");
                         }
                         else if (bike == "2")
                         {
                             Clear();
                             _downhill.SellBike();
-                            WriteLine("Press 7 to navigate back and 8 to exit.");
+                            WriteLine($"Press {optionsCount - 1} to navigate back " +
+                                $"and {optionsCount} to exit.");
                         }
                         break;
 
                     case "2":
-
-                        break;
-
-                    case "3":
-
-                        break;
-
-                    case "4":
                         Clear();
                         _enduro.ShowEnduroStatistics();
                         WriteLine();
                         WriteLine("***********************************************");
                         WriteLine();
                         _downhill.ShowDownhillStatistics();
-                        WriteLine("Press 7 to navigate back and 8 to exit.");
+                        WriteLine($"Press {optionsCount - 1} to navigate back " +
+                            $"and {optionsCount} to exit.");
                         break;
 
-                    case "5":
+                    case "3":
+                        Clear();
+                        StoreStatistics.ShowAll(_enduro.GetListOfAllEnduros(), _downhill.GetListOfAllDownhills());
+                        WriteLine($"Number of Enduro sells: {_enduro.numberOfSells}");
+                        WriteLine($"Number of Downhill sells: {_downhill.numberOfSells}");
+                        WriteLine($"Press {optionsCount - 1} to navigate back " +
+                            $"and {optionsCount} to exit.");
+                        break;
+
+                    case "4":
                         Clear();
                         string bikeOption = SelectBikeModel();
                         if (bikeOption == "1")
@@ -108,24 +110,27 @@ namespace Uni
                             _enduro.Add();
                             Clear();
                             _enduro.ShowEnduroStatistics();
-                            WriteLine("Press 7 to navigate back and 8 to exit.");
+                            WriteLine($"Press {optionsCount - 1} to navigate back " +
+                                $"and {optionsCount} to exit.");
                         }
                         else if (bikeOption == "2")
                         {
                             _downhill.Add();
                             Clear();
                             _downhill.ShowDownhillStatistics();
-                            WriteLine("Press 7 to navigate back and 8 to exit.");
+                            WriteLine($"Press {optionsCount - 1} to navigate back " +
+                                $"and {optionsCount} to exit.");
                         }
                         break;
 
-                    case "6":
+                    case "5":
                         _customer.Add();
                         _customer.ShowAllCustomers();
-                        WriteLine("Press 7 to navigate back and 8 to exit.");
+                        WriteLine($"Press {optionsCount - 1} to navigate back " +
+                            $"and {optionsCount} to exit.");
                         break;
 
-                    case "7":
+                    case "6":
                         Clear();
                         Menu();
                         break;

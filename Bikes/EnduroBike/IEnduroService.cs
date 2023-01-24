@@ -5,5 +5,7 @@
         void Add();
         void ShowEnduroStatistics();
         void SellBike();
+        List<Enduro> GetListOfAllEnduros();
+        int numberOfSells { get; }
     }
 }
