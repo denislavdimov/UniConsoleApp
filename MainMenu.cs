@@ -143,6 +143,12 @@ namespace Uni
                 WriteLine("Select an option");
                 option = ReadLine();
             }
+
+        }
+        public void Start()
+        {
+            Menu();
+            SelectOption();
         }
     }
 }
